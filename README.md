@@ -168,3 +168,4 @@ Como o **GitHub Pages** é uma plataforma de hospedagem de arquivos puramente es
 - **Clean Architecture:** Separação estrita de responsabilidades (Rotas $\to$ Controladores $\to$ Banco $\to$ Frontend).
 - **Sem Dependências Inline:** Sem tags `<script>` ou `<style>` poluindo o HTML semântico.
 # liana-goulart-portal
+# liana-goulart-portal
