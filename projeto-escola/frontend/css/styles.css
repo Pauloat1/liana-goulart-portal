@@ -1,0 +1,800 @@
+/* /frontend/css/styles.css */
+/**
+ * ==============================================================================
+ * PROJETO ESCOLA LIANA GOURLART
+ * Folha de Estilos Global (Vanilla CSS3)
+ * Integração: Identidade Visual Original (Poppins, #1e3a7a, #ff6b6b, #4ecdc4)
+ * Design System: Mobile-First, Flexbox/Grid, Responsividade Total
+ * ==============================================================================
+ */
+
+/* ------------------------------------------------------------------------------
+   1. Variáveis Globais (:root)
+   ------------------------------------------------------------------------------ */
+:root {
+    /* Paleta Institucional da Escola Liana Gourlart */
+    --primary: #1e3a7a;            /* Azul Marinho Principal */
+    --primary-dark: #122550;       /* Azul Escuro Profundo */
+    --primary-light: #e8eefb;      /* Azul Suave para Fundos */
+    --secondary: #ff6b6b;          /* Coral / Salmão Vibrante (Destaques e CTAs) */
+    --secondary-hover: #fa5252;
+    --accent: #4ecdc4;             /* Turquesa / Verde Água (Inovação e Acessibilidade) */
+    --accent-light: #e6faf8;
+
+    /* Tons Neutros e Fundos */
+    --bg-light: #f8f9fa;           /* Fundo Secundário */
+    --bg-main: #ffffff;            /* Fundo Primário */
+    --surface: #ffffff;            /* Fundo de Cards e Formulários */
+    --text-dark: #2d3436;          /* Texto Principal */
+    --text-muted: #636e72;         /* Texto Secundário */
+    --border-color: #e9ecef;       /* Divisores Suaves */
+    --white: #ffffff;
+
+    /* Status e Indicadores */
+    --success: #2ed573;
+    --success-light: #d4edda;
+    --warning: #ffa502;
+    --warning-light: #fff3cd;
+    --danger: #ff4757;
+    --danger-light: #f8d7da;
+    --info: #1e3a7a;
+
+    /* Tipografia e Sombras */
+    --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-full: 9999px;
+
+    --transition: 0.3s ease;
+}
+
+/* ------------------------------------------------------------------------------
+   2. Reset e Tipografia Base
+   ------------------------------------------------------------------------------ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    color: var(--text-dark);
+    line-height: 1.6;
+    background-color: var(--bg-main);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* ------------------------------------------------------------------------------
+   3. Estrutura e Utilitários de Layout
+   ------------------------------------------------------------------------------ */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+.bg-light {
+    background-color: var(--bg-light);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.units-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* ------------------------------------------------------------------------------
+   4. Botões e Ações
+   ------------------------------------------------------------------------------ */
+.btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    padding: 12px 26px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(30, 58, 122, 0.2);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(30, 58, 122, 0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+    padding: 10px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-secondary:hover {
+    background: var(--white);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.btn-login {
+    background: var(--secondary);
+    color: var(--white);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn-login:hover {
+    background: var(--secondary-hover);
+    color: var(--white);
+    opacity: 0.95;
+    transform: translateY(-1px);
+}
+
+.btn-sm {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-sm:hover {
+    background: var(--primary-dark);
+    color: var(--white);
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* ------------------------------------------------------------------------------
+   5. Barra de Navegação (Navbar)
+   ------------------------------------------------------------------------------ */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.logo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 18px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 0.92rem;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.mobile-nav {
+    display: none;
+    flex-direction: column;
+    padding: 15px 5%;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 70px;
+    width: 100%;
+    z-index: 999;
+}
+
+.mobile-nav.open {
+    display: flex;
+}
+
+.mobile-nav a {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+@media(max-width: 900px) {
+    .nav-links {
+        display: none;
+    }
+    .mobile-toggle {
+        display: block;
+    }
+}
+
+/* ------------------------------------------------------------------------------
+   6. Hero Section
+   ------------------------------------------------------------------------------ */
+.hero {
+    min-height: 88vh;
+    background: linear-gradient(rgba(30, 58, 122, 0.82), rgba(18, 37, 80, 0.88)),
+                url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    padding: 100px 20px 60px 20px;
+    margin-top: 60px;
+}
+
+.hero-content {
+    max-width: 820px;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    color: var(--white);
+    padding: 6px 18px;
+    border-radius: var(--radius-full);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.15rem;
+    margin-bottom: 35px;
+    opacity: 0.95;
+    line-height: 1.7;
+}
+
+.hero-btns {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+@media(max-width: 768px) {
+    .hero h1 {
+        font-size: 2.1rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+}
+
+/* ------------------------------------------------------------------------------
+   7. Escola Sede e História
+   ------------------------------------------------------------------------------ */
+.headquarters-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    background: var(--bg-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    align-items: center;
+    border: 1px solid var(--border-color);
+}
+
+.hq-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 290px;
+}
+
+.hq-info {
+    padding: 35px;
+}
+
+.hq-info h3 {
+    color: var(--primary);
+    font-size: 1.45rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hq-info p {
+    margin-bottom: 12px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+@media(max-width: 768px) {
+    .headquarters-banner {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ------------------------------------------------------------------------------
+   8. Cards das Fundadoras e Diretoras
+   ------------------------------------------------------------------------------ */
+.card-founder {
+    background: var(--white);
+    padding: 40px 30px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    border-top: 5px solid var(--primary);
+    transition: transform var(--transition);
+}
+
+.card-founder:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.card-founder img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px auto;
+    border: 4px solid var(--accent);
+    box-shadow: var(--shadow-sm);
+}
+
+.card-founder h3 {
+    color: var(--primary-dark);
+    font-size: 1.35rem;
+    margin-bottom: 6px;
+}
+
+.card-founder .role {
+    display: block;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+}
+
+.card-founder p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    text-align: left;
+    line-height: 1.7;
+}
+
+/* ------------------------------------------------------------------------------
+   9. Mapa Interativo e Unidades Escolares
+   ------------------------------------------------------------------------------ */
+.map-container {
+    width: 100%;
+    height: 460px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    border: 4px solid var(--white);
+    z-index: 10;
+}
+
+.card-location {
+    background: var(--white);
+    padding: 22px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border-left: 5px solid var(--primary);
+    overflow: hidden;
+    transition: transform var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-location:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.card-location.headquarters {
+    border-left: 5px solid var(--secondary);
+    background: #fffafa;
+}
+
+.unit-card-img {
+    width: 100%;
+    height: 165px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 14px;
+}
+
+.card-location h3 {
+    font-size: 1.05rem;
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.card-location p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    align-self: flex-start;
+}
+
+.badge.private { background: var(--primary); color: var(--white); }
+.badge.public  { background: #00b894; color: var(--white); }
+.badge.approved { background: var(--success); color: var(--white); }
+
+/* ------------------------------------------------------------------------------
+   10. Tabelas Responsivas de Mensalidades e Dados
+   ------------------------------------------------------------------------------ */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    background: var(--white);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.data-table th, .data-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table th {
+    background-color: var(--bg-light);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+.data-table tbody tr:hover {
+    background-color: #fafbfc;
+}
+
+/* ------------------------------------------------------------------------------
+   11. Causas Sociais e Formulários
+   ------------------------------------------------------------------------------ */
+.social-causes {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: var(--white);
+    border-radius: var(--radius-lg);
+    margin: 40px auto;
+    padding: 70px 20px;
+}
+
+.causes-banner {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.causes-banner .icon-big {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    color: var(--white);
+}
+
+.causes-form {
+    background: var(--white);
+    color: var(--text-dark);
+    padding: 35px;
+    border-radius: var(--radius-md);
+    margin-top: 35px;
+    text-align: left;
+    box-shadow: var(--shadow-lg);
+}
+
+.causes-form h3 {
+    margin-bottom: 18px;
+    color: var(--primary);
+    font-size: 1.3rem;
+}
+
+.form-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 16px;
+}
+
+.form-group input, .causes-form select, .form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.form-group input:focus, .causes-form select:focus, .form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 58, 122, 0.15);
+}
+
+@media(max-width: 768px) {
+    .form-group {
+        flex-direction: column;
+    }
+}
+
+/* ------------------------------------------------------------------------------
+   12. Modais Interativos
+   ------------------------------------------------------------------------------ */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(18, 37, 80, 0.7);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal.active, .modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius-md);
+    width: 90%;
+    max-width: 480px;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    animation: modalIn 0.25s ease-out;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    border: none;
+    background: none;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: var(--danger);
+}
+
+.input-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.input-group input, .input-group select, .input-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+/* ------------------------------------------------------------------------------
+   13. Rodapé Institucional
+   ------------------------------------------------------------------------------ */
+.footer {
+    background: #0d1b38;
+    color: var(--white);
+    padding: 60px 0 25px 0;
+    margin-top: auto;
+}
+
+.footer h3 {
+    font-size: 1.25rem;
+    margin-bottom: 18px;
+    color: var(--accent);
+}
+
+.footer p {
+    color: #b0c4de;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 8px;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 40px;
+    padding-top: 25px;
+    color: #8da4c4;
+    font-size: 0.88rem;
+}
+
+/* Alertas e Notificações Flutuantes */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    background-color: var(--primary-dark);
+    color: var(--white);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: none;
+    z-index: 9999;
+}
+
+.toast.show {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toast-success { background-color: #059669; }
+.toast-error   { background-color: var(--danger); }

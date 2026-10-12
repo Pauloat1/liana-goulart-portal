@@ -1,0 +1,194 @@
+<!-- /frontend/login.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal do Aluno e Professor | Escola Liana Gourlart</title>
+    <meta name="description" content="Acesso restrito ao portal da Escola Liana Gourlart para alunos, pais e professores.">
+    
+    <!-- Google Fonts Poppins & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos Globais (CSS Puro) -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(30, 58, 122, 0.9) 0%, rgba(18, 37, 80, 0.95) 100%),
+                        url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80') center/cover;
+        }
+
+        .login-card {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 450px;
+            padding: 2.5rem;
+            animation: modalIn 0.3s ease-out;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: var(--radius-md);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(30, 58, 122, 0.3);
+            text-decoration: none;
+        }
+
+        .demo-box {
+            margin-top: 1.75rem;
+            padding: 1.25rem;
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .demo-box h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+
+        .btn-demo-fill {
+            background-color: var(--white);
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            padding: 0.55rem 0.85rem;
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .btn-demo-fill:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body class="login-page">
+
+    <div class="login-card">
+        <!-- Logo e Título -->
+        <div class="login-header">
+            <a href="index.html" class="login-logo" title="Voltar para o site institucional">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </a>
+            <h1 style="font-size:1.6rem; font-weight:700; color:var(--primary-dark); margin-bottom:0.25rem;">
+                Portal do Aluno & Docente
+            </h1>
+            <p style="color:var(--text-muted); font-size:0.95rem;">
+                Escola Liana Gourlart - Acesso Restrito
+            </p>
+        </div>
+
+        <!-- Alerta de Erro -->
+        <div id="login-error" class="alert alert-danger" style="display:none; margin-bottom:1.25rem;"></div>
+
+        <!-- Formulário de Login -->
+        <form id="login-form">
+            <div class="form-group" style="margin-bottom:1.25rem;">
+                <label for="email" class="form-label" style="font-size:0.9rem; font-weight:600; color:var(--text-dark); margin-bottom:5px;">
+                    <i class="fa-solid fa-envelope"></i> E-mail ou Matrícula
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="form-control" 
+                    placeholder="ex: aluno.lucas@escola.com" 
+                    required 
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="form-group" style="margin-bottom:1.5rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+                    <label for="senha" class="form-label" style="font-size:0.9rem; font-weight:600; color:var(--text-dark);">
+                        <i class="fa-solid fa-lock"></i> Senha de Acesso
+                    </label>
+                    <a href="javascript:void(0)" onclick="alert('Por questões de segurança, solicite sua redefinição de senha na secretaria da sua unidade escolar.')" style="font-size:0.8rem; color:var(--primary);">
+                        Esqueceu?
+                    </a>
+                </div>
+                <input 
+                    type="password" 
+                    id="senha" 
+                    name="senha" 
+                    class="form-control" 
+                    placeholder="••••••••" 
+                    required 
+                    autocomplete="current-password"
+                >
+            </div>
+
+            <button type="submit" id="login-btn" class="btn-primary btn-block" style="padding:12px; font-size:1.05rem; border-radius:8px;">
+                <i class="fa-solid fa-right-to-bracket"></i> Entrar no Portal
+            </button>
+        </form>
+
+        <!-- Atalhos Rápidos para Avaliação dos Perfis -->
+        <div class="demo-box">
+            <h4><i class="fa-solid fa-key"></i> Acesso Rápido de Teste</h4>
+            <div class="demo-grid">
+                <button type="button" class="btn-demo-fill" data-email="aluno.lucas@escola.com" data-pass="senha123">
+                    <span><i class="fa-solid fa-user-graduate" style="color:var(--primary);"></i> <strong>Aluno</strong> (Lucas Mendes)</span>
+                    <small style="color:var(--text-muted); font-weight:600;">Preencher</small>
+                </button>
+                <button type="button" class="btn-demo-fill" data-email="prof.carlos@escola.com" data-pass="senha123">
+                    <span><i class="fa-solid fa-chalkboard-user" style="color:var(--warning);"></i> <strong>Professor</strong> (Carlos Eduardo)</span>
+                    <small style="color:var(--text-muted); font-weight:600;">Preencher</small>
+                </button>
+                <button type="button" class="btn-demo-fill" data-email="maria.mae@escola.com" data-pass="senha123">
+                    <span><i class="fa-solid fa-people-roof" style="color:var(--secondary);"></i> <strong>Responsável</strong> (Maria Clara)</span>
+                    <small style="color:var(--text-muted); font-weight:600;">Preencher</small>
+                </button>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:1.5rem; font-size:0.9rem;">
+            <a href="index.html" style="color:var(--text-muted); display:inline-flex; align-items:center; gap:6px;">
+                <i class="fa-solid fa-arrow-left"></i> Voltar para a Página Inicial
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts Vanilla -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "projeto-escola",
+  "version": "1.0.0",
+  "description": "Portal da Escola Liana Goulart - Sistema de Gestão Escolar",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js"
+  },
+  "keywords": ["escola", "liana-goulart", "portal-escolar", "express", "sqlite"],
+  "author": "Escola Liana Goulart",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.7"
+  }
+}

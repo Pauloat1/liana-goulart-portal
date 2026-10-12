@@ -1,0 +1,536 @@
+<!-- /frontend/index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escola Liana Gourlart - Transformando o Futuro</title>
+    <meta name="description" content="Portal oficial da Escola Liana Gourlart. Educação transformadora, inclusiva e humana com 5 unidades particulares e 4 públicas de referência.">
+    
+    <!-- Google Fonts Poppins & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet.js CSS para o Mapa Interativo das 9 Unidades -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    
+    <!-- Estilos Globais Modularizados (CSS Puro) -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- 1. Barra de Navegação (Navbar) -->
+    <header>
+        <nav class="navbar" id="navbar">
+            <a href="index.html" class="logo" aria-label="Página inicial Escola Liana Gourlart">
+                <i class="fa-solid fa-graduation-cap"></i> <span>Escola Liana Gourlart</span>
+            </a>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#historia">História & Sede</a></li>
+                <li><a href="#diretoras">As Diretoras</a></li>
+                <li><a href="#unidades">Rede (9 Unidades)</a></li>
+                <li><a href="#inclusao-infra">A Escola & Inclusão</a></li>
+                <li><a href="#matriculas">Matrículas & Provas</a></li>
+                <li><a href="#causas">Causas Sociais</a></li>
+            </ul>
+
+            <div style="display:flex; align-items:center; gap:10px;">
+                <a href="login.html" id="btn-area-restrita" class="btn-login">
+                    <i class="fa-solid fa-user-lock"></i> Portal do Aluno
+                </a>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menu de navegação">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Menu Mobile -->
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="#historia">História & Sede</a>
+            <a href="#diretoras">As Diretoras</a>
+            <a href="#unidades">Rede (9 Unidades)</a>
+            <a href="#inclusao-infra">A Escola & Inclusão</a>
+            <a href="#matriculas">Matrículas & Provas</a>
+            <a href="#causas">Causas Sociais</a>
+            <a href="login.html" id="btn-area-restrita-mobile" style="color:var(--secondary); font-weight:700;">
+                <i class="fa-solid fa-user-lock"></i> Portal do Aluno (Login)
+            </a>
+        </nav>
+    </header>
+
+    <!-- 2. Conteúdo Principal -->
+    <main id="public-site">
+        
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-star"></i> Matrículas Abertas para o Ano Letivo 2026
+                </div>
+                <h1>Educação Transformadora, Inclusiva e Humana</h1>
+                <p>Construindo pontes para o conhecimento, lutando pela igualdade e promovendo a excelência acadêmica com 5 unidades particulares e 4 públicas de referência.</p>
+                <div class="hero-btns">
+                    <a href="#matriculas" class="btn-primary">
+                        <i class="fa-solid fa-file-pen"></i> Quero Matricular
+                    </a>
+                    <a href="login.html" class="btn-secondary">
+                        <i class="fa-solid fa-right-to-bracket"></i> Entrar no Portal
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- HISTÓRIA DA ESCOLA & ESCOLA SEDE -->
+        <section id="historia" class="section">
+            <div class="container">
+                <h2 class="section-title">Nossa História & Escola Sede</h2>
+                <p class="section-subtitle">Conheça onde tudo começou e a nossa trajetória de impacto social</p>
+                
+                <div class="headquarters-banner">
+                    <img 
+                        src="479e4911-f2b4-4162-9298-f25f905311d0.png" 
+                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=900&q=80';" 
+                        alt="Escola Sede Liana Gourlart" 
+                        class="hq-img"
+                    >
+                    <div class="hq-info">
+                        <h3><i class="fa-solid fa-landmark"></i> Escola Sede - Campus Central (Particular)</h3>
+                        <p><strong>Endereço:</strong> Av. Santos Dumont, 3000 - Aldeota, Fortaleza - CE</p>
+                        <p>Nossa matriz é o berço de todas as inovações pedagógicas, albergando os laboratórios centrais, diretoria e o núcleo de projetos sociais de nossa rede.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 50px; align-items:center;">
+                    <div>
+                        <p style="margin-bottom:1rem; font-size:1.05rem; color:var(--text-dark);">
+                            Tudo começou em <strong>2014</strong>, no coração de um bairro pulsante e cheio de diversidade. Duas jovens educadoras com ideias revolucionárias sobre o futuro da sociedade — <strong>Liana Magalhães</strong> e <strong>Julie Goulart</strong> — cruzaram seus caminhos. Frustradas com um sistema de ensino engessado que tratava todos os alunos de forma igualzinha, em vez de respeitar as individualidades, elas decidiram criar algo novo.
+                        </p>
+                        <p style="font-size:1.05rem; color:var(--text-dark);">
+                            Juntas, uniram economias, coragem e muita paixão para fundar a primeira escola comunitária com apenas duas salas de aula e 30 alunos bolsistas. Hoje, nossa rede impacta milhares de famílias em todo o Ceará.
+                        </p>
+                    </div>
+                    <div>
+                        <img 
+                            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" 
+                            alt="Estudantes na Escola Liana Gourlart" 
+                            style="width:100%; border-radius:12px; box-shadow:var(--shadow-md);"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: AS DIRETORAS E FUNDADORAS -->
+        <section id="diretoras" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">As Diretoras e Idealizadoras</h2>
+                <p class="section-subtitle">Conheça as mentes e corações que lideram nossa rede educacional</p>
+
+                <div class="grid-2">
+                    <div class="card-founder">
+                        <img 
+                            src="1000153026.jpg" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80';" 
+                            alt="Liana Magalhães"
+                        >
+                        <h3>Liana Magalhães</h3>
+                        <span class="role">Co-Fundadora e Diretora Pedagógica Geral</span>
+                        <p>Pedagoga formada com ênfase em metodologias ativas e inclusão da neurodiversidade. Liana acredita que a educação deve acolher as diferenças e transformar o pensamento crítico em ferramenta de emancipação. É a responsável pela curadoria pedagógica e capacitação contínua de toda a nossa equipe de docentes nas 9 unidades.</p>
+                    </div>
+                    
+                    <div class="card-founder">
+                        <img 
+                            src="1000172556.jpg" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=400&q=80';" 
+                            alt="Julie Goulart"
+                        >
+                        <h3>Julie Goulart</h3>
+                        <span class="role">Co-Fundadora e Diretora de Direitos Humanos e Inclusão</span>
+                        <p>Advogada especialista em Direitos Humanos e Políticas Públicas. Julie lidera os núcleos de acolhimento social, bolsas de estudo, parcerias com as unidades públicas estaduais e as comissões de combate ao bullying e defesa da diversidade LGBT+ e PCD na rede Liana Gourlart.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- UNIDADES & MAPA INTERATIVO LEAFLET -->
+        <section id="unidades" class="section">
+            <div class="container">
+                <h2 class="section-title">Nossa Rede de Escolas (5 Particulares + 4 Públicas)</h2>
+                <p class="section-subtitle">Localize as 9 escolas no mapa interativo e veja a distância exata até você</p>
+                
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <button class="btn-primary" id="btn-detect-loc">
+                        <i class="fa-solid fa-location-crosshairs"></i> Detectar Minha Localização e Calcular Distâncias
+                    </button>
+                    <p id="geo-status" style="margin-top: 10px; font-size: 0.95rem; color: var(--primary-dark); font-weight: 600;"></p>
+                </div>
+
+                <!-- Mapa Renderizado pelo Leaflet -->
+                <div id="map" class="map-container"></div>
+
+                <!-- 9 Unidades Escolares -->
+                <div class="units-grid" style="margin-top: 40px;">
+                    <!-- Sede -->
+                    <div class="card-location headquarters" id="unit-0">
+                        <img 
+                            src="479e4911-f2b4-4162-9298-f25f905311d0.png" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=80';" 
+                            alt="Escola Sede" 
+                            class="unit-card-img"
+                        >
+                        <h3><i class="fa-solid fa-star" style="color:var(--secondary);"></i> Escola Sede - Campus Central</h3>
+                        <span class="badge private">Particular</span>
+                        <p><strong>Endereço:</strong> Av. Santos Dumont, 3000 - Aldeota</p>
+                        <p class="dist-info" style="color: var(--secondary); font-weight: 700;">Distância: Clique no botão acima</p>
+                    </div>
+
+                    <!-- Unidade 1 -->
+                    <div class="card-location" id="unit-1">
+                        <img 
+                            src="519bc707-2b96-4d4a-ba50-e54f75d73850.png" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=600&q=80';" 
+                            alt="Unidade Sul" 
+                            class="unit-card-img"
+                        >
+                        <h3>1. Unidade Sul - Campus Cidadania</h3>
+                        <span class="badge private">Particular</span>
+                        <p><strong>Endereço:</strong> Av. Washington Soares, 268 - Edson Queiroz</p>
+                        <p class="dist-info" style="color: var(--primary); font-weight: 700;">Distância: Clique no botão acima</p>
+                    </div>
+
+                    <!-- Unidade 2 -->
+                    <div class="card-location" id="unit-2">
+                        <img 
+                            src="oliasd.png" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80';" 
+                            alt="Unidade Norte" 
+                            class="unit-card-img"
+                        >
+                        <h3>2. Unidade Norte - Campus Horizonte</h3>
+                        <span class="badge private">Particular</span>
+                        <p><strong>Endereço:</strong> Av. Beira Mar, 800 - Meireles</p>
+                        <p class="dist-info" style="color: var(--primary); font-weight: 700;">Distância: Clique no botão acima</p>
+                    </div>
+
+                    <!-- Unidade 3 -->
+                    <div class="card-location" id="unit-3">
+                        <img 
+                            src="f4b825ad-0c8a-4950-b15f-a4fa5e620146_2.png" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80';" 
+                            alt="Unidade Leste" 
+                            class="unit-card-img"
+                        >
+                        <h3>3. Unidade Leste - Campus Aurora</h3>
+                        <span class="badge private">Particular</span>
+                        <p><strong>Endereço:</strong> Rua Monsenhor Tabosa, 500 - Praia de Iracema</p>
+                        <p class="dist-info" style="color: var(--primary); font-weight: 700;">Distância: Clique no botão acima</p>
+                    </div>
+
+                    <!-- Unidade 4 -->
+                    <div class="card-location" id="unit-4">
+                        <img 
+                            src="89431af6-a0e2-4ef2-9750-59df1262d2d6.png" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80';" 
+                            alt="Unidade Oeste" 
+                            class="unit-card-img"
+                        >
+                        <h3>4. Unidade Oeste - Campus Liberdade</h3>
+                        <span class="badge private">Particular</span>
+                        <p><strong>Endereço:</strong> Av. Bezerra de Menezes, 1200 - São Gerardo</p>
+                        <p class="dist-info" style="color: var(--primary); font-weight: 700;">Distância: Clique no botão acima</p>
+                    </div>
+
+                    <!-- Unidade 5 (Pública) -->
+                    <div class="card-location" id="unit-5">
+                        <img 
+                            src="663fabdd-8907-464a-bcb5-4b6d8b686770.png" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=600&q=80';" 
+                            alt="EE Progresso" 
+                            class="unit-card-img"
+                        >
+                        <h3>5. EE Liana Gourlart - Campus Progresso</h3>
+                        <span class="badge public">Pública (Estadual) - Exige Prova</span>
+                        <p><strong>Endereço:</strong> Rua Major Facundo, 482 - Centro</p>
+                        <p class="dist-info" style="color: var(--primary); font-weight: 700;">Distância: Clique no botão acima</p>
+                    </div>
+
+                    <!-- Unidade 6 (Pública) -->
+                    <div class="card-location" id="unit-6">
+                        <img 
+                            src="85afb1af-fb30-496e-899f-19724113caac_2.png" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80';" 
+                            alt="EE Verde" 
+                            class="unit-card-img"
+                        >
+                        <h3>6. EE Liana Gourlart - Campus Verde</h3>
+                        <span class="badge public">Pública (Estadual) - Exige Prova</span>
+                        <p><strong>Endereço:</strong> Av. Godofredo Maciel, 2500 - Maraponga</p>
+                        <p class="dist-info" style="color: var(--primary); font-weight: 700;">Distância: Clique no botão acima</p>
+                    </div>
+
+                    <!-- Unidade 7 (Pública) -->
+                    <div class="card-location" id="unit-7">
+                        <img 
+                            src="dks.png" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80';" 
+                            alt="EE Mar" 
+                            class="unit-card-img"
+                        >
+                        <h3>7. EE Liana Gourlart - Campus Mar</h3>
+                        <span class="badge public">Pública (Estadual) - Exige Prova</span>
+                        <p><strong>Endereço:</strong> Av. Dioguinho, 3500 - Praia do Futuro</p>
+                        <p class="dist-info" style="color: var(--primary); font-weight: 700;">Distância: Clique no botão acima</p>
+                    </div>
+
+                    <!-- Unidade 8 (Pública) -->
+                    <div class="card-location" id="unit-8">
+                        <img 
+                            src="036bb40d-513a-4a44-b99f-d5fe26912392.png" 
+                            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?auto=format&fit=crop&w=600&q=80';" 
+                            alt="EE Integração" 
+                            class="unit-card-img"
+                        >
+                        <h3>8. EE Liana Gourlart - Campus Integração</h3>
+                        <span class="badge public">Pública (Estadual) - Exige Prova</span>
+                        <p><strong>Endereço:</strong> Av. Mister Hull, 4000 - Antônio Bezerra</p>
+                        <p class="dist-info" style="color: var(--primary); font-weight: 700;">Distância: Clique no botão acima</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: A ESCOLA POR DENTRO & PACTO DE INCLUSÃO -->
+        <section id="inclusao-infra" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">A Escola por Dentro & Nosso Pacto de Inclusão</h2>
+                <p class="section-subtitle">Conheça nossos espaços e as políticas ativas de respeito à diversidade</p>
+
+                <div class="grid-2" style="margin-bottom: 50px; align-items: center;">
+                    <div>
+                        <h3 style="color:var(--primary-dark); font-size:1.5rem; margin-bottom:12px;">
+                            <i class="fa-solid fa-building-columns" style="color: var(--primary);"></i> Instalações Modernas
+                        </h3>
+                        <p style="font-size:1.05rem; color:var(--text-muted); line-height:1.7;">
+                            Os campi da rede Liana Gourlart contam com laboratórios de ciências e robótica, bibliotecas comunitárias interativas, quadras poliesportivas cobertas e cantinhos de leitura acolhedores projetados para o desenvolvimento integral do estudante.
+                        </p>
+                    </div>
+                    <div>
+                        <img 
+                            src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80" 
+                            alt="Sala de aula moderna" 
+                            style="width:100%; border-radius:15px; box-shadow: var(--shadow-md);"
+                        >
+                    </div>
+                </div>
+
+                <!-- Acessibilidade PCD -->
+                <div style="background: white; padding: 40px; border-radius: 15px; margin-bottom: 40px; box-shadow: var(--shadow-sm); border:1px solid var(--border-color);">
+                    <h3 style="color:var(--primary-dark); font-size:1.4rem;">
+                        <i class="fa-solid fa-wheelchair" style="color: var(--primary);"></i> Acessibilidade Total para PCDs
+                    </h3>
+                    <div class="grid-3" style="margin-top: 25px;">
+                        <div style="background: var(--bg-light); padding: 22px; border-radius: 10px; border-left:4px solid var(--primary);">
+                            <h4 style="color:var(--primary-dark); margin-bottom:6px;">Infraestrutura Física</h4>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">Rampas suaves, elevadores adaptados, pisos táteis e banheiros acessíveis em todos os andares das 9 unidades.</p>
+                        </div>
+                        <div style="background: var(--bg-light); padding: 22px; border-radius: 10px; border-left:4px solid var(--accent);">
+                            <h4 style="color:var(--primary-dark); margin-bottom:6px;">Intérpretes de LIBRAS</h4>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">Tradução simultânea nas aulas, materiais didáticos adaptados e suporte pedagógico contínuo.</p>
+                        </div>
+                        <div style="background: var(--bg-light); padding: 22px; border-radius: 10px; border-left:4px solid var(--secondary);">
+                            <h4 style="color:var(--primary-dark); margin-bottom:6px;">Suporte Neurodivergente</h4>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">Salas de descompressão multifuncionais e acompanhamento psicopedagógico para autismo, TDAH e dislexia.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acolhimento LGBT+ -->
+                <div style="padding: 40px; border: 2px solid var(--accent); border-radius: 15px; background: white; box-shadow:var(--shadow-sm);">
+                    <h3 style="color:var(--primary-dark); font-size:1.4rem;">
+                        <i class="fa-solid fa-rainbow" style="color: var(--secondary);"></i> Acolhimento à Comunidade LGBT+
+                    </h3>
+                    <p style="margin-top: 15px; color:var(--text-muted); font-size:1.05rem;">
+                        A Escola Liana Gourlart é um espaço seguro e livre de preconceitos, onde cada indivíduo é respeitado em sua singularidade:
+                    </p>
+                    <ul style="margin-top: 18px; margin-left: 20px; line-height: 1.8; color:var(--text-dark);">
+                        <li><strong>Uso do Nome Social:</strong> Garantia absoluta de respeito ao nome social em chamadas, diários de classe e sistemas desde o primeiro dia de matrícula.</li>
+                        <li><strong>Sanitários e Espaços Neutros:</strong> Banheiros multigênero e individuais disponíveis em todas as nossas unidades.</li>
+                        <li><strong>Comitê de Escuta e Combate ao Bullying:</strong> Núcleo ativo de apoio psicológico, mediação de conflitos e educação em direitos humanos.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: MATRÍCULAS, MENSALIDADES E PROVAS PÚBLICAS -->
+        <section id="matriculas" class="section">
+            <div class="container">
+                <h2 class="section-title">Matrículas, Mensalidades & Processos Seletivos</h2>
+                <p class="section-subtitle">Informações transparentes sobre mensalidades particulares e o vestibular/prova para unidades públicas</p>
+
+                <!-- Tabela de Mensalidades -->
+                <div style="margin-bottom: 40px;">
+                    <h3 style="color:var(--primary-dark); margin-bottom:6px;">Tabela de Mensalidades (Unidades Particulares)</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 15px;">Desconto de 15% para irmãos matriculados na rede.</p>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Segmento Escolar</th>
+                                    <th>Valor Base Mensal</th>
+                                    <th>Matrícula Anual</th>
+                                    <th>Bolsas Sociais</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Ensino Fundamental I (1º ao 5º ano)</strong></td>
+                                    <td>R$ 980,00</td>
+                                    <td>R$ 980,00</td>
+                                    <td><span class="badge approved">Até 100% (Bolsas Cidadãs)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ensino Fundamental II (6º ao 9º ano)</strong></td>
+                                    <td>R$ 1.150,00</td>
+                                    <td>R$ 1.150,00</td>
+                                    <td><span class="badge approved">Até 100% (Bolsas Cidadãs)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ensino Médio & Pré-ENEM</strong></td>
+                                    <td>R$ 1.420,00</td>
+                                    <td>R$ 1.420,00</td>
+                                    <td><span class="badge approved">Até 100% (Bolsas Cidadãs)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Destaque sobre Escolas Públicas -->
+                <div style="background: white; padding: 35px; border-radius: 15px; border-left: 6px solid #00b894; box-shadow: var(--shadow-sm); margin-bottom: 40px;">
+                    <h3 style="color: #00b894; font-size:1.35rem;">
+                        <i class="fa-solid fa-landmark"></i> Unidades Públicas Estaduais (100% Gratuitas) - Exigência de Prova
+                    </h3>
+                    <p style="margin-top: 15px; line-height: 1.8; color:var(--text-dark);">
+                        As <strong>4 Escolas Estaduais Liana Gourlart</strong> são totalmente públicas, gratuitas e mantidas em convênio de excelência. Por conta da alta procura e do padrão elevado de ensino, <strong>para ingressar nas unidades públicas estaduais é obrigatório realizar uma prova de seleção (processo seletivo unificado)</strong> composta por questões de Língua Portuguesa e Matemática.
+                    </p>
+                    <p style="margin-top: 10px; color:var(--text-muted);">
+                        As inscrições para o processo seletivo público ocorrem anualmente nos meses de novembro e dezembro.
+                    </p>
+                </div>
+
+                <!-- Formulário de Pré-Matrícula -->
+                <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); padding: 45px 35px; border-radius: 18px; color: white;">
+                    <h2 style="font-size:1.8rem; margin-bottom:10px;">Faça sua Pré-Matrícula ou Inscrição na Prova Pública</h2>
+                    <p style="opacity:0.95; margin-bottom:20px;">Preencha os dados abaixo e nossa equipe entrará em contato com as instruções.</p>
+
+                    <form id="form-pre-matricula" style="background: white; padding: 30px; border-radius: 12px; color: var(--text-dark);">
+                        <div class="form-group">
+                            <input type="text" id="pre-student" placeholder="Nome Completo do Aluno(a)" required>
+                            <input type="email" id="pre-email" placeholder="E-mail do Responsável" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="pre-unit" required>
+                                <option value="" disabled selected>Selecione a Unidade Desejada</option>
+                                <option value="Escola Sede - Campus Central">Escola Sede - Campus Central (Particular - Sem Prova)</option>
+                                <option value="1. Unidade Sul - Campus Cidadania">1. Unidade Sul - Campus Cidadania (Particular - Sem Prova)</option>
+                                <option value="2. Unidade Norte - Campus Horizonte">2. Unidade Norte - Campus Horizonte (Particular - Sem Prova)</option>
+                                <option value="3. Unidade Leste - Campus Aurora">3. Unidade Leste - Campus Aurora (Particular - Sem Prova)</option>
+                                <option value="4. Unidade Oeste - Campus Liberdade">4. Unidade Oeste - Campus Liberdade (Particular - Sem Prova)</option>
+                                <option value="5. EE Liana Gourlart - Campus Progresso">5. EE Liana Gourlart - Campus Progresso (Pública - Exige Prova)</option>
+                                <option value="6. EE Liana Gourlart - Campus Verde">6. EE Liana Gourlart - Campus Verde (Pública - Exige Prova)</option>
+                                <option value="7. EE Liana Gourlart - Campus Mar">7. EE Liana Gourlart - Campus Mar (Pública - Exige Prova)</option>
+                                <option value="8. EE Liana Gourlart - Campus Integração">8. EE Liana Gourlart - Campus Integração (Pública - Exige Prova)</option>
+                            </select>
+                            <select id="pre-segment" required>
+                                <option value="" disabled selected>Segmento Escolar</option>
+                                <option value="Ensino Fundamental I">Ensino Fundamental I</option>
+                                <option value="Ensino Fundamental II">Ensino Fundamental II</option>
+                                <option value="Ensino Médio & Pré-ENEM">Ensino Médio & Pré-ENEM</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary" style="margin-top:10px;">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Solicitação de Matrícula
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAUSAS SOCIAIS E CADASTRO DE APOIO -->
+        <section id="causas" class="section social-causes">
+            <div class="container">
+                <div class="causes-banner">
+                    <i class="fa-solid fa-heart-pulse icon-big"></i>
+                    <h2>Luta pelas Causas Sociais & Cadastro de Apoiadores</h2>
+                    <p style="font-size:1.1rem; margin-top:10px;">Mude o futuro com a gente! Faça parte dos nossos projetos voluntários e comunitários.</p>
+                    
+                    <form class="causes-form" id="form-causas-sociais">
+                        <h3>Cadastre-se para Apoiar Nossas Causas</h3>
+                        <div class="form-group">
+                            <input type="text" id="causa-name" placeholder="Seu Nome Completo" required>
+                            <input type="email" id="causa-email" placeholder="Seu E-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="causa-phone" placeholder="Seu WhatsApp / Telefone" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="causa-type" required>
+                                <option value="" disabled selected>Selecione a Causa que Deseja Apoiar</option>
+                                <option value="Programa de Bolsas Cidadãs">Programa de Bolsas Cidadãs</option>
+                                <option value="Biblioteca Comunitária Aberta">Biblioteca Comunitária Aberta</option>
+                                <option value="Projetos de Inclusão e Acessibilidade">Projetos de Inclusão e Acessibilidade</option>
+                                <option value="Voluntariado em Ações Sociais">Voluntariado em Ações Sociais</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary" style="margin-top:10px;">
+                            <i class="fa-solid fa-paper-plane"></i> Confirmar Meu Cadastro
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTÍCIAS & COMUNICADOS DINÂMICOS DA API -->
+        <section class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">Mural de Notícias & Comunicados Oficiais</h2>
+                <p class="section-subtitle">Avisos recentes e novidades das nossas unidades</p>
+                <div class="grid-3" id="public-announcements-container">
+                    <!-- Preenchido via API ou fallback estático -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 3. Rodapé Institucional -->
+    <footer class="footer">
+        <div class="container grid-3">
+            <div>
+                <h3>Escola Liana Gourlart</h3>
+                <p>Transformando a sociedade através de uma educação inclusiva, forte e de causas nobres em nossa rede com 9 unidades.</p>
+            </div>
+            <div>
+                <h3>Diretoria</h3>
+                <p>Liana Magalhães & Julie Goulart</p>
+                <p style="margin-top:8px;">Campus Central: Av. Santos Dumont, 3000 - Aldeota, Fortaleza - CE</p>
+            </div>
+            <div>
+                <h3>Contato</h3>
+                <p><i class="fa-solid fa-envelope"></i> contato@escolalianagourlart.edu.br</p>
+                <p><i class="fa-solid fa-phone"></i> (85) 3333-4444 | (85) 99999-8888</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Escola Liana Gourlart. Todos os direitos reservados. Rede com 9 Unidades Escolares.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts e Bibliotecas Externas -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

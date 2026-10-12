@@ -1,0 +1,787 @@
+<!-- /frontend/hub.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub do Aluno e Professor | Escola Liana Gourlart</title>
+    <meta name="description" content="Área restrita e portal integrado de notas, calendário, biblioteca, apoio psicológico e gabaritos da Escola Liana Gourlart.">
+    
+    <!-- Google Fonts Poppins & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos Globais e do Dashboard (CSS Puro Modular) -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <div class="hub-wrapper">
+        <!-- Overlay Mobile para Sidebar -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- 1. Sidebar Responsiva com Perfis RBAC -->
+        <aside class="hub-sidebar" id="hub-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand">
+                    <i class="fa-solid fa-graduation-cap" style="color:var(--accent); font-size:1.4rem;"></i>
+                    <span>Liana Gourlart</span>
+                </a>
+                <button class="sidebar-close-btn" id="sidebar-close" aria-label="Fechar menu">✕</button>
+            </div>
+
+            <!-- Menus Filtrados por Papel RBAC (data-roles) -->
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-roles="student,parent,teacher">
+                    <button data-target="panel-grades">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <span id="grades-nav-label">Boletim Escolar</span>
+                    </button>
+                </li>
+
+                <li class="menu-item" data-roles="student,parent,teacher">
+                    <button data-target="panel-calendar">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>Calendário Escolar</span>
+                    </button>
+                </li>
+
+                <li class="menu-item" data-roles="student,parent,teacher">
+                    <button data-target="panel-books">
+                        <i class="fa-solid fa-book"></i>
+                        <span>Livros Didáticos</span>
+                    </button>
+                </li>
+
+                <li class="menu-item" data-roles="student,parent,teacher">
+                    <button data-target="panel-library">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                        <span>Biblioteca & Empréstimos</span>
+                    </button>
+                </li>
+
+                <li class="menu-item" data-roles="student,parent">
+                    <button data-target="panel-psychology">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                        <span>Apoio Psicológico</span>
+                    </button>
+                </li>
+
+                <li class="menu-item" data-roles="student,parent">
+                    <button data-target="panel-professors">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        <span>Falar com Professores</span>
+                    </button>
+                </li>
+
+                <li class="menu-item" data-roles="student,parent,teacher">
+                    <button data-target="panel-keys">
+                        <i class="fa-solid fa-list-check"></i>
+                        <span>Gabaritos de Provas</span>
+                    </button>
+                </li>
+
+                <li class="menu-item" data-roles="student,parent,teacher">
+                    <button data-target="panel-announcements">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <span>Mural de Avisos</span>
+                    </button>
+                </li>
+
+                <!-- Abas Exclusivas do Perfil Professor ('teacher') -->
+                <li class="menu-item" data-roles="teacher">
+                    <button data-target="panel-launch-grades">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Lançar / Editar Notas</span>
+                    </button>
+                </li>
+
+                <li class="menu-item" data-roles="teacher">
+                    <button data-target="panel-upload-keys">
+                        <i class="fa-solid fa-file-circle-plus"></i>
+                        <span>Cadastrar Gabarito</span>
+                    </button>
+                </li>
+
+                <li class="menu-item" data-roles="teacher">
+                    <button data-target="panel-students">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Turmas & Alunos</span>
+                    </button>
+                </li>
+
+                <!-- Aba Exclusiva do Perfil Responsável ('parent') -->
+                <li class="menu-item" data-roles="parent">
+                    <button data-target="panel-parent-contact">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                        <span>Canal com a Escola</span>
+                    </button>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="index.html" style="color:#b0c4de; font-size:0.88rem; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-globe"></i> Portal Institucional
+                </a>
+            </div>
+        </aside>
+
+        <!-- 2. Área de Conteúdo Principal -->
+        <div class="hub-main">
+            <!-- Topbar Superior -->
+            <header class="hub-topbar">
+                <div class="topbar-left">
+                    <button class="menu-toggle-btn" id="menu-toggle" aria-label="Abrir menu de navegação">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 style="font-size:1.25rem; font-weight:700; color:var(--primary-dark);">
+                        Painel Integrado
+                    </h1>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="user-profile-widget">
+                        <div class="user-avatar" id="user-avatar">LG</div>
+                        <div class="user-info-text">
+                            <span class="user-name" id="user-name">Carregando...</span>
+                            <span class="badge user-role-badge" id="user-role-badge">Verificando...</span>
+                        </div>
+                    </div>
+                    <button class="btn-sm btn-logout" id="logout-btn" title="Encerrar sessão" style="background:var(--secondary); color:#fff; border-radius:6px;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair
+                    </button>
+                </div>
+            </header>
+
+            <!-- Conteúdo Dinâmico em Abas -->
+            <main class="hub-content-body">
+                
+                <!-- Cards de Estatísticas / Resumo -->
+                <section class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fa-solid fa-book-open"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-grades-count">-</div>
+                            <div class="stat-label">Disciplinas Registradas</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon yellow"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-average">-</div>
+                            <div class="stat-label">Média Aritmética</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-approved">-</div>
+                            <div class="stat-label">Aprovações Parciais</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fa-solid fa-file-pdf"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stat-keys-count">-</div>
+                            <div class="stat-label">Gabaritos Disponíveis</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINEL 1: Boletim Escolar (com Abas de Bimestres) -->
+                <section class="hub-panel active" id="panel-grades">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2 id="grades-panel-title">Boletim Acadêmico Oficial - 2026</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Notas bimestrais, faltas e situação de aproveitamento por disciplina.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Filtro de Bimestres do Protótipo Original -->
+                        <div class="bimestre-tabs">
+                            <button class="bim-btn active" data-bimester="1">1º Bimestre</button>
+                            <button class="bim-btn" data-bimester="2">2º Bimestre</button>
+                            <button class="bim-btn" data-bimester="3">3º Bimestre</button>
+                            <button class="bim-btn" data-bimester="4">4º Bimestre & Média</button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Disciplina</th>
+                                        <th>Bimestre</th>
+                                        <th>Nota</th>
+                                        <th>Situação</th>
+                                        <th>Observações / Faltas</th>
+                                        <th style="text-align:right;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="grades-table-body">
+                                    <!-- Renderizado dinamicamente via hub.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINEL 2: Calendário Escolar 2026 -->
+                <section class="hub-panel" id="panel-calendar">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-calendar-days" style="color:var(--primary);"></i> Calendário Escolar 2026</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Datas de avaliações bimestrais, feiras científicas, feriados e reuniões pedagógicas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Evento / Atividade</th>
+                                        <th>Categoria</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>15 a 19 de Outubro</strong></td>
+                                        <td>Semana de Provas e Avaliações do 4º Bimestre</td>
+                                        <td><span class="badge private">Avaliação Oficial</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>28 de Outubro</strong></td>
+                                        <td>Feira de Ciências, Tecnologia e Sustentabilidade</td>
+                                        <td><span class="badge approved">Evento Escolar</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>15 de Novembro</strong></td>
+                                        <td>Feriado Nacional: Proclamação da República</td>
+                                        <td><span class="badge" style="background:#e74c3c; color:white;">Feriado</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>01 a 10 de Dezembro</strong></td>
+                                        <td>Plantão de Recuperação e Provas Finais</td>
+                                        <td><span class="badge private">Recuperação</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>18 de Dezembro</strong></td>
+                                        <td>Cerimônia de Formatura e Encerramento do Ano Letivo</td>
+                                        <td><span class="badge approved">Solenidade</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINEL 3: Livros Didáticos Digitais -->
+                <section class="hub-panel" id="panel-books">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-book" style="color:var(--primary);"></i> Portal de Livros Didáticos Digitais</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Acesse e baixe os materiais didáticos estruturados desenvolvidos pelo corpo docente para 2026.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="library-item">
+                                <div>
+                                    <h4>Livro Didático: Matemática Aplicada & Cidadania (Vol. 2)</h4>
+                                    <p><strong>Autoria:</strong> Depto. de Ciências Exatas Liana Gourlart</p>
+                                    <span class="status available">Disponível em PDF (Versão Oficial 2026)</span>
+                                </div>
+                                <button class="btn-sm" onclick="showToast('Iniciando download do Livro de Matemática Aplicada...')">
+                                    <i class="fa-solid fa-download"></i> Baixar PDF
+                                </button>
+                            </div>
+
+                            <div class="library-item">
+                                <div>
+                                    <h4>Livro Didático: Língua Portuguesa e Práticas Textuais</h4>
+                                    <p><strong>Autoria:</strong> Depto. de Linguagens Liana Gourlart</p>
+                                    <span class="status available">Disponível em PDF (Versão Oficial 2026)</span>
+                                </div>
+                                <button class="btn-sm" onclick="showToast('Iniciando download do Livro de Língua Portuguesa...')">
+                                    <i class="fa-solid fa-download"></i> Baixar PDF
+                                </button>
+                            </div>
+
+                            <div class="library-item">
+                                <div>
+                                    <h4>Livro Didático: História, Cidadania e Direitos Humanos</h4>
+                                    <p><strong>Autoria:</strong> Coordenadoria de Direitos Humanos</p>
+                                    <span class="status available">Disponível em PDF (Versão Oficial 2026)</span>
+                                </div>
+                                <button class="btn-sm" onclick="showToast('Iniciando download do Livro de História e Direitos Humanos...')">
+                                    <i class="fa-solid fa-download"></i> Baixar PDF
+                                </button>
+                            </div>
+
+                            <div class="library-item">
+                                <div>
+                                    <h4>Livro Didático: Ciências da Natureza e Ecossistemas</h4>
+                                    <p><strong>Autoria:</strong> Depto. de Ciências e Sustentabilidade</p>
+                                    <span class="status available">Disponível em PDF (Versão Oficial 2026)</span>
+                                </div>
+                                <button class="btn-sm" onclick="showToast('Iniciando download do Livro de Ciências da Natureza...')">
+                                    <i class="fa-solid fa-download"></i> Baixar PDF
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINEL 4: Biblioteca Escolar & Empréstimos -->
+                <section class="hub-panel" id="panel-library">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-book-bookmark" style="color:var(--primary);"></i> Acervo Literário & Empréstimos</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Consulte obras do acervo e solicite empréstimo físico ou reserva digital.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid-3">
+                            <div class="library-item">
+                                <div>
+                                    <h4>É Assim que Acaba</h4>
+                                    <p><strong>Autora:</strong> Colleen Hoover</p>
+                                    <span class="status available">Disponível para Empréstimo Físico</span>
+                                </div>
+                                <button class="btn-sm" onclick="openBorrowModal('É Assim que Acaba')">
+                                    <i class="fa-solid fa-bookmark"></i> Solicitar Empréstimo
+                                </button>
+                            </div>
+
+                            <div class="library-item">
+                                <div>
+                                    <h4>Está Chovendo Estrelas</h4>
+                                    <p><strong>Autora:</strong> Ana Santos</p>
+                                    <span class="status available">Disponível Digitalmente</span>
+                                </div>
+                                <button class="btn-sm" onclick="openBorrowModal('Está Chovendo Estrelas')">
+                                    <i class="fa-solid fa-download"></i> Baixar / Reservar
+                                </button>
+                            </div>
+
+                            <div class="library-item">
+                                <div>
+                                    <h4>Vovó Virou Semente</h4>
+                                    <p><strong>Autor:</strong> Rodrigo Ciríaco</p>
+                                    <span class="status available">Disponível para Empréstimo Físico</span>
+                                </div>
+                                <button class="btn-sm" onclick="openBorrowModal('Vovó Virou Semente')">
+                                    <i class="fa-solid fa-bookmark"></i> Solicitar Empréstimo
+                                </button>
+                            </div>
+
+                            <div class="library-item">
+                                <div>
+                                    <h4>Vermelho, Branco e Sangue Azul</h4>
+                                    <p><strong>Autora:</strong> Casey McQuiston</p>
+                                    <span class="status available">Disponível Digitalmente</span>
+                                </div>
+                                <button class="btn-sm" onclick="openBorrowModal('Vermelho, Branco e Sangue Azul')">
+                                    <i class="fa-solid fa-download"></i> Baixar / Reservar
+                                </button>
+                            </div>
+
+                            <div class="library-item">
+                                <div>
+                                    <h4>O Pequeno Príncipe</h4>
+                                    <p><strong>Autor:</strong> Antoine de Saint-Exupéry</p>
+                                    <span class="status available">Disponível para Empréstimo Físico</span>
+                                </div>
+                                <button class="btn-sm" onclick="openBorrowModal('O Pequeno Príncipe')">
+                                    <i class="fa-solid fa-bookmark"></i> Solicitar Empréstimo
+                                </button>
+                            </div>
+
+                            <div class="library-item">
+                                <div>
+                                    <h4>Quarto de Despejo</h4>
+                                    <p><strong>Autora:</strong> Carolina Maria de Jesus</p>
+                                    <span class="status available">Disponível para Empréstimo Físico</span>
+                                </div>
+                                <button class="btn-sm" onclick="openBorrowModal('Quarto de Despejo')">
+                                    <i class="fa-solid fa-bookmark"></i> Solicitar Empréstimo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINEL 5: Apoio Psicológico e Escuta Empática -->
+                <section class="hub-panel" id="panel-psychology">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-hand-holding-heart" style="color:var(--secondary);"></i> Núcleo de Apoio Psicológico e Escuta Empática</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Atendimento sigiloso, humanizado e acolhedor com a equipe psicopedagógica da escola.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form id="form-psychology" style="max-width:700px;">
+                            <div class="input-group">
+                                <label for="psy-type">Assunto / Motivo do Contato</label>
+                                <select id="psy-type" class="form-control" required>
+                                    <option value="Ansiedade e Estresse com Provas">Ansiedade e Estresse com Provas</option>
+                                    <option value="Orientação Vocacional / Futuro">Orientação Vocacional / Futuro</option>
+                                    <option value="Questões Pessoais / Familiares">Questões Pessoais / Familiares</option>
+                                    <option value="Relato de Bullying ou Conflito">Relato de Bullying ou Conflito</option>
+                                    <option value="Outro Assunto Sigiloso">Outro Assunto Sigiloso</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="psy-message">Sua Mensagem / Desabafo Confidencial</label>
+                                <textarea id="psy-message" class="form-control" rows="5" placeholder="Escreva aqui sua mensagem de forma segura e confidencial..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem Sigilosa à Psicóloga
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- PAINEL 6: Falar com Professores -->
+                <section class="hub-panel" id="panel-professors">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-chalkboard-user" style="color:var(--primary);"></i> Diretório de Professores & Dúvidas Acadêmicas</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Tire dúvidas sobre exercícios, prazos e conteúdos diretamente com o docente.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid-3">
+                            <div class="card-book">
+                                <i class="fa-solid fa-user-tie book-icon"></i>
+                                <h4>Prof. Carlos Eduardo</h4>
+                                <p style="color:var(--text-muted); margin-bottom:12px;"><strong>Disciplina:</strong> Matemática Aplicada</p>
+                                <button class="btn-sm" onclick="openMessageModal('Prof. Carlos Eduardo', 'Matemática Aplicada')">
+                                    <i class="fa-solid fa-envelope"></i> Enviar Mensagem
+                                </button>
+                            </div>
+
+                            <div class="card-book">
+                                <i class="fa-solid fa-user-tie book-icon"></i>
+                                <h4>Profª. Mariana Souza</h4>
+                                <p style="color:var(--text-muted); margin-bottom:12px;"><strong>Disciplina:</strong> Língua Portuguesa</p>
+                                <button class="btn-sm" onclick="openMessageModal('Profª. Mariana Souza', 'Língua Portuguesa')">
+                                    <i class="fa-solid fa-envelope"></i> Enviar Mensagem
+                                </button>
+                            </div>
+
+                            <div class="card-book">
+                                <i class="fa-solid fa-user-tie book-icon"></i>
+                                <h4>Prof. Roberto Alves</h4>
+                                <p style="color:var(--text-muted); margin-bottom:12px;"><strong>Disciplina:</strong> História & Direitos Humanos</p>
+                                <button class="btn-sm" onclick="openMessageModal('Prof. Roberto Alves', 'História & Direitos Humanos')">
+                                    <i class="fa-solid fa-envelope"></i> Enviar Mensagem
+                                </button>
+                            </div>
+
+                            <div class="card-book">
+                                <i class="fa-solid fa-user-tie book-icon"></i>
+                                <h4>Profª. Juliana Lima</h4>
+                                <p style="color:var(--text-muted); margin-bottom:12px;"><strong>Disciplina:</strong> Ciências e Sustentabilidade</p>
+                                <button class="btn-sm" onclick="openMessageModal('Profª. Juliana Lima', 'Ciências e Sustentabilidade')">
+                                    <i class="fa-solid fa-envelope"></i> Enviar Mensagem
+                                </button>
+                            </div>
+
+                            <div class="card-book">
+                                <i class="fa-solid fa-user-tie book-icon"></i>
+                                <h4>Prof. Fernando Rocha</h4>
+                                <p style="color:var(--text-muted); margin-bottom:12px;"><strong>Disciplina:</strong> Física e Robótica</p>
+                                <button class="btn-sm" onclick="openMessageModal('Prof. Fernando Rocha', 'Física e Robótica')">
+                                    <i class="fa-solid fa-envelope"></i> Enviar Mensagem
+                                </button>
+                            </div>
+
+                            <div class="card-book">
+                                <i class="fa-solid fa-user-tie book-icon"></i>
+                                <h4>Profª. Beatriz Mendes</h4>
+                                <p style="color:var(--text-muted); margin-bottom:12px;"><strong>Disciplina:</strong> Inglês e Literatura</p>
+                                <button class="btn-sm" onclick="openMessageModal('Profª. Beatriz Mendes', 'Inglês')">
+                                    <i class="fa-solid fa-envelope"></i> Enviar Mensagem
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINEL 7: Gabaritos de Provas e Avaliações -->
+                <section class="hub-panel" id="panel-keys">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-list-check" style="color:var(--primary);"></i> Gabaritos Oficiais e Resoluções</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Resoluções de provas, critérios de correção e gabaritos de simulados.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="feed-list" id="answer-keys-list">
+                            <!-- Preenchido via API -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINEL 8: Mural de Avisos da Escola -->
+                <section class="hub-panel" id="panel-announcements">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-bullhorn" style="color:var(--secondary);"></i> Mural de Avisos & Comunicados</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Notificações pedagógicas e administrativas da direção.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="feed-list" id="hub-announcements-list">
+                            <!-- Preenchido via API -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINEL 9: Lançamento de Notas (Exclusivo Professor) -->
+                <section class="hub-panel" id="panel-launch-grades">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-pen-to-square" style="color:var(--primary);"></i> Lançar Nota no Boletim</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Selecione o estudante e informe o valor da avaliação bimestral.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form id="teacher-grade-form" style="max-width:680px;">
+                            <div class="form-group">
+                                <label for="grade-student-select" class="form-label">Estudante</label>
+                                <select id="grade-student-select" class="form-control" required>
+                                    <option value="">Carregando alunos...</option>
+                                </select>
+                            </div>
+
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="grade-subject" class="form-label">Disciplina / Matéria</label>
+                                    <input type="text" id="grade-subject" class="form-control" placeholder="Ex: Matemática, História..." required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="grade-bimester" class="form-label">Bimestre</label>
+                                    <select id="grade-bimester" class="form-control">
+                                        <option value="1">1º Bimestre</option>
+                                        <option value="2">2º Bimestre</option>
+                                        <option value="3">3º Bimestre</option>
+                                        <option value="4">4º Bimestre</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="grade-value" class="form-label">Nota (0.0 a 10.0)</label>
+                                <input type="number" id="grade-value" class="form-control" step="0.1" min="0" max="10" placeholder="Ex: 8.5" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="grade-observations" class="form-label">Parecer Pedagógico / Observações</label>
+                                <textarea id="grade-observations" class="form-control" placeholder="Comentários sobre o progresso do estudante..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                <i class="fa-solid fa-floppy-disk"></i> Salvar Nota no Boletim
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- PAINEL 10: Cadastro de Gabarito (Exclusivo Professor) -->
+                <section class="hub-panel" id="panel-upload-keys">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-file-circle-plus" style="color:var(--primary);"></i> Publicar Novo Gabarito</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Disponibilize as respostas oficiais para consulta dos alunos e responsáveis.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form id="teacher-key-form" style="max-width:680px;">
+                            <div class="form-group">
+                                <label for="key-title" class="form-label">Título da Avaliação</label>
+                                <input type="text" id="key-title" class="form-control" placeholder="Ex: Avaliação Bimestral de Física" required>
+                            </div>
+
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="key-class" class="form-label">Turma</label>
+                                    <input type="text" id="key-class" class="form-control" placeholder="Ex: 9º Ano A" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="key-subject" class="form-label">Disciplina</label>
+                                    <input type="text" id="key-subject" class="form-control" placeholder="Ex: Física" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="key-content" class="form-label">Gabarito das Questões (Texto)</label>
+                                <textarea id="key-content" class="form-control" placeholder="Ex: 1-A | 2-C | 3-B | 4-E | 5-D. Comentários adicionais sobre critérios..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Publicar Gabarito
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- PAINEL 11: Turmas & Alunos (Exclusivo Professor) -->
+                <section class="hub-panel" id="panel-students">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-users" style="color:var(--primary);"></i> Relação de Alunos & Turmas</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Visão geral dos estudantes matriculados e desempenho médio.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome do Aluno</th>
+                                        <th>Turma</th>
+                                        <th>E-mail</th>
+                                        <th>Notas Lançadas</th>
+                                        <th>Média Geral</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="students-table-body">
+                                    <!-- Preenchido via API -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINEL 12: Canal Direto com a Escola (Exclusivo Responsável) -->
+                <section class="hub-panel" id="panel-parent-contact">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <div>
+                                <h2><i class="fa-solid fa-envelope-open-text" style="color:var(--primary);"></i> Canal Direto com a Coordenação Pedagógica</h2>
+                                <p style="color:var(--text-muted); font-size:0.95rem;">
+                                    Envie dúvidas pedagógicas, justificativas de faltas ou agendamentos diretamente para a escola.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form id="parent-quick-contact-form" style="max-width:680px;">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">Responsável</label>
+                                    <input type="text" id="parent-sender-name" class="form-control" readonly style="background-color:var(--bg-light);">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">E-mail Cadastrado</label>
+                                    <input type="email" id="parent-sender-email" class="form-control" readonly style="background-color:var(--bg-light);">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="parent-contact-subject" class="form-label">Assunto</label>
+                                <input type="text" id="parent-contact-subject" class="form-control" placeholder="Ex: Justificativa de falta ou agendamento de reunião" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="parent-contact-message" class="form-label">Mensagem para os Professores / Coordenação</label>
+                                <textarea id="parent-contact-message" class="form-control" placeholder="Escreva detalhadamente sua mensagem..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem Direta
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL DE EMPRÉSTIMO DE LIVRO -->
+    <div class="modal" id="borrowModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeBorrowModal()">&times;</button>
+            <h3 style="color:var(--primary-dark); margin-bottom:8px;">Confirmação de Empréstimo</h3>
+            <p id="borrowBookTitle" style="font-size:0.92rem; color:var(--text-muted); margin-bottom:18px;"></p>
+            <form onsubmit="confirmBookBorrow(event)">
+                <div class="input-group">
+                    <label>Confirme seu Nome</label>
+                    <input type="text" id="borrowUserName" required placeholder="Seu nome completo">
+                </div>
+                <div class="input-group">
+                    <label>Confirme sua Matrícula / Senha</label>
+                    <input type="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <i class="fa-solid fa-check"></i> Confirmar Solicitação
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE MENSAGEM PARA O PROFESSOR -->
+    <div class="modal" id="messageModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeMessageModal()">&times;</button>
+            <h3 id="modalTeacherTitle" style="color:var(--primary-dark); margin-bottom:12px;">Mensagem Acadêmica</h3>
+            <form onsubmit="sendMessageToTeacher(event)">
+                <div class="input-group">
+                    <label>Escreva sua dúvida ou solicitação pedagógica:</label>
+                    <textarea id="teacherMessageText" rows="4" placeholder="Professor(a), fiquei com dúvida no exercício..." required style="width:100%; padding:10px; border-radius:6px; border:1px solid #ced4da;"></textarea>
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <i class="fa-solid fa-paper-plane"></i> Enviar ao Docente
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts Vanilla -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/hub.js"></script>
+</body>
+</html>
