@@ -58,6 +58,68 @@ function setupUserProfile(user) {
         userAvatarElem.textContent = initials;
     }
 
+    // Sistema de Foto de Perfil do Aluno / Usuário com localStorage
+    const avatarContainer = document.getElementById('avatar-container');
+    const avatarInput = document.getElementById('avatar-input');
+    const avatarImg = document.getElementById('avatar-img');
+    const avatarStorageKey = `escola_avatar_${user.id || user.email || 'default'}`;
+
+    function renderUserAvatar(base64Image) {
+        if (base64Image && avatarImg && userAvatarElem) {
+            avatarImg.src = base64Image;
+            avatarImg.style.display = 'block';
+            userAvatarElem.style.display = 'none';
+        } else if (avatarImg && userAvatarElem) {
+            avatarImg.style.display = 'none';
+            userAvatarElem.style.display = 'flex';
+        }
+    }
+
+    // Carrega avatar previamente salvo
+    const savedAvatar = localStorage.getItem(avatarStorageKey);
+    if (savedAvatar) {
+        renderUserAvatar(savedAvatar);
+    }
+
+    if (avatarContainer && avatarInput) {
+        avatarContainer.addEventListener('click', () => {
+            avatarInput.click();
+        });
+
+        avatarInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor, selecione um arquivo de imagem válido.');
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                alert('A imagem deve ter no máximo 5MB.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64Data = event.target.result;
+                try {
+                    localStorage.setItem(avatarStorageKey, base64Data);
+                    renderUserAvatar(base64Data);
+                    if (typeof showToast === 'function') {
+                        showToast('Foto de perfil atualizada com sucesso!');
+                    } else {
+                        alert('Foto de perfil atualizada com sucesso!');
+                    }
+                } catch (err) {
+                    console.error('Erro ao salvar avatar no localStorage:', err);
+                    alert('Erro ao salvar imagem localmente. Tente uma imagem menor.');
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {

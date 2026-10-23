@@ -1,0 +1,13 @@
+{
+  "name": "escola-liana-goulart-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portal oficial da Escola Liana Goulart",
+  "scripts": {
+    "build": "echo 'Build finalizado com sucesso'",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^3.109.2"
+  }
+}

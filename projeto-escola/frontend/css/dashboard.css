@@ -176,9 +176,61 @@
     gap: 0.75rem;
 }
 
+.sidebar-logo-img {
+    height: 38px;
+    max-width: 110px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+    padding: 2px 4px;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    box-shadow: var(--shadow-sm);
+}
+
+.avatar-edit-overlay {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: var(--transition);
+}
+
+.avatar-wrapper:hover .avatar-edit-overlay {
+    background: var(--secondary);
+    transform: scale(1.1);
+}
+
 .user-avatar {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     border-radius: var(--radius-full);
     background-color: var(--primary-light);
     color: var(--primary);

@@ -154,9 +154,18 @@ Como o **GitHub Pages** é uma plataforma de hospedagem de arquivos puramente es
      - Em **Source**, selecione **Deploy from a branch**.
      - Em **Branch**, selecione a branch `main` e a pasta onde se encontram os arquivos estáticos (se a raiz tiver a pasta `/frontend`, você pode apontar para a raiz ou mover os arquivos estáticos para o branch de deploy `gh-pages`).
    - Clique em **Save**.
-   - O GitHub irá gerar o link público da sua aplicação (ex: `https://seu-usuario.github.io/liana-goulart-portal/frontend/`).
+   - O GitHub irá gerar o link público da sua aplicação.
 
-5. **Para Hospedar a API Completa com Backend Node.js (Full-Stack Gratuito):**
+5. **Deploy na Cloudflare (Pages / Workers):**
+   - **Método 1 (Automático via Cloudflare Workers / Wrangler):**
+     O repositório já possui o arquivo `wrangler.json` configurado apontando para `./projeto-escola/frontend`. Qualquer deploy disparado com `npx wrangler deploy` funcionará de forma imediata e automática.
+   - **Método 2 (Cloudflare Pages via Dashboard):**
+     No painel da Cloudflare em **Workers & Pages** -> **Create Application** -> **Pages** -> **Connect to Git**:
+     - **Build command**: (deixar vazio ou `npm run build`)
+     - **Build output directory**: `projeto-escola/frontend`
+     - **Root directory**: `/` (padrão)
+
+6. **Para Hospedar a API Completa com Backend Node.js (Full-Stack Gratuito):**
    - Caso queira a API Express e o banco de dados rodando em nuvem com persistência real, faça o deploy gratuito do backend em serviços como **Render**, **Railway** ou **Fly.io** e aponte o `API_BASE_URL` em `frontend/js/api.js` para a URL do seu servidor em nuvem.
 
 ---

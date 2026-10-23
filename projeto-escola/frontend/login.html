@@ -44,15 +44,16 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            color: var(--white);
-            border-radius: var(--radius-md);
-            font-size: 1.8rem;
+            max-width: 180px;
             margin-bottom: 1rem;
-            box-shadow: 0 4px 12px rgba(30, 58, 122, 0.3);
             text-decoration: none;
+        }
+
+        .login-logo img {
+            width: 100%;
+            max-height: 75px;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
         }
 
         .demo-box {
@@ -106,7 +107,7 @@
         <!-- Logo e Título -->
         <div class="login-header">
             <a href="index.html" class="login-logo" title="Voltar para o site institucional">
-                <i class="fa-solid fa-graduation-cap"></i>
+                <img src="assets/logo.jpg" alt="Logo Escola Liana Gourlart">
             </a>
             <h1 style="font-size:1.6rem; font-weight:700; color:var(--primary-dark); margin-bottom:0.25rem;">
                 Portal do Aluno & Docente
