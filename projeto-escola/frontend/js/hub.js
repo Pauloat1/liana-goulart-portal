@@ -32,6 +32,8 @@ function setupUserProfile(user) {
     const userAvatarElem = document.getElementById('user-avatar');
 
     if (userNameElem) userNameElem.textContent = user.nome;
+    const welcomeUserElem = document.getElementById('welcome-user-name');
+    if (welcomeUserElem) welcomeUserElem.textContent = user.nome ? user.nome.split(' ')[0] : 'Estudante';
 
     if (userRoleElem) {
         let roleText = 'Usuário';
