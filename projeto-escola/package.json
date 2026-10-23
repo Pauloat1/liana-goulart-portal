@@ -7,7 +7,13 @@
     "start": "node backend/server.js",
     "dev": "node --watch backend/server.js"
   },
-  "keywords": ["escola", "liana-goulart", "portal-escolar", "express", "sqlite"],
+  "keywords": [
+    "escola",
+    "liana-goulart",
+    "portal-escolar",
+    "express",
+    "sqlite"
+  ],
   "author": "Escola Liana Goulart",
   "license": "ISC",
   "dependencies": {
@@ -16,5 +22,8 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "jpeg-js": "^0.4.4"
   }
 }

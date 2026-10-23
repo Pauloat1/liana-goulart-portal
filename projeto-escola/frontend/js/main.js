@@ -206,20 +206,30 @@ async function loadPublicAnnouncements() {
         const result = await api.get('/announcements');
         if (result.success && result.data && result.data.length > 0) {
             container.innerHTML = '';
-            result.data.slice(0, 3).forEach(item => {
+            const announcementImages = [
+                'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80'
+            ];
+            result.data.slice(0, 3).forEach((item, index) => {
                 const card = document.createElement('div');
                 card.className = 'card-founder';
                 card.style.textAlign = 'left';
-                card.style.padding = '25px';
+                card.style.padding = '0';
+                card.style.overflow = 'hidden';
+                const imgUrl = announcementImages[index % announcementImages.length];
                 card.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                        <span class="badge private">${escapeHTML(item.category || 'Aviso')}</span>
-                        <small style="color:var(--text-muted);">${new Date(item.created_at).toLocaleDateString('pt-BR')}</small>
-                    </div>
-                    <h3 style="font-size:1.15rem; color:var(--primary-dark); margin-bottom:8px;">${escapeHTML(item.title)}</h3>
-                    <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">${escapeHTML(item.content)}</p>
-                    <div style="margin-top:14px; font-size:0.85rem; color:var(--primary); font-weight:600;">
-                        Publicado por: ${escapeHTML(item.author_name)}
+                    <img src="${imgUrl}" alt="${escapeHTML(item.title)}" style="width:100%; height:160px; object-fit:cover; border-radius:0; border:none; margin-bottom:0;">
+                    <div style="padding: 22px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <span class="badge private">${escapeHTML(item.category || 'Aviso')}</span>
+                            <small style="color:var(--text-muted);">${new Date(item.created_at).toLocaleDateString('pt-BR')}</small>
+                        </div>
+                        <h3 style="font-size:1.15rem; color:var(--primary-dark); margin-bottom:8px;">${escapeHTML(item.title)}</h3>
+                        <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">${escapeHTML(item.content)}</p>
+                        <div style="margin-top:14px; font-size:0.85rem; color:var(--primary); font-weight:600;">
+                            Publicado por: ${escapeHTML(item.author_name)}
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);

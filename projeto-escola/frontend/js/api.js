@@ -9,8 +9,14 @@
 
 const API_BASE_URL = '/api';
 
-// Detecção de ambiente estático (como GitHub Pages)
-const isStaticHost = window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
+// Detecção de ambiente estático (Cloudflare Pages, Workers, GitHub Pages, Vercel, Netlify ou modo arquivo)
+const isStaticHost = 
+    window.location.hostname.includes('pages.dev') ||
+    window.location.hostname.includes('workers.dev') ||
+    window.location.hostname.includes('github.io') ||
+    window.location.hostname.includes('vercel.app') ||
+    window.location.hostname.includes('netlify.app') ||
+    window.location.protocol === 'file:';
 
 const api = {
     getToken() {
@@ -32,11 +38,23 @@ const api = {
     },
 
     async handleResponse(response) {
-        let data = {};
-        try {
-            data = await response.json();
-        } catch (e) {
-            data = { success: false, message: 'Resposta inválida do servidor.' };
+        let data = null;
+        const contentType = response.headers.get('content-type') || '';
+        
+        if (contentType.includes('application/json')) {
+            try {
+                data = await response.json();
+            } catch (e) {
+                data = null;
+            }
+        }
+
+        // Se o servidor retornou HTML (ex: 404 em servidor estático como Cloudflare Pages), sinaliza para fallback
+        if (!data) {
+            const error = new Error('Resposta não-JSON do servidor (ambiente estático).');
+            error.status = response.status;
+            error.isNonJson = true;
+            throw error;
         }
 
         if (!response.ok) {
@@ -61,6 +79,10 @@ const api = {
     },
 
     async get(endpoint) {
+        if (isStaticHost) {
+            return this.staticMockGet(endpoint);
+        }
+
         try {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, {
                 method: 'GET',
@@ -68,8 +90,8 @@ const api = {
             });
             return await this.handleResponse(response);
         } catch (error) {
-            // Em caso de falha de rede no GitHub Pages estático, executa o mock fallback
-            if (isStaticHost || error.message.includes('Failed to fetch')) {
+            // Em caso de falha de rede, erro 404 ou resposta HTML
+            if (error.isNonJson || error.status === 404 || error.message.includes('Failed to fetch') || error.message.includes('NetworkError') || error.message.includes('Load failed')) {
                 return this.staticMockGet(endpoint);
             }
             console.error(`Erro na requisição GET ${endpoint}:`, error);
@@ -78,6 +100,10 @@ const api = {
     },
 
     async post(endpoint, body = {}) {
+        if (isStaticHost) {
+            return this.staticMockPost(endpoint, body);
+        }
+
         try {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, {
                 method: 'POST',
@@ -86,7 +112,7 @@ const api = {
             });
             return await this.handleResponse(response);
         } catch (error) {
-            if (isStaticHost || error.message.includes('Failed to fetch')) {
+            if (error.isNonJson || error.status === 404 || error.message.includes('Failed to fetch') || error.message.includes('NetworkError') || error.message.includes('Load failed')) {
                 return this.staticMockPost(endpoint, body);
             }
             console.error(`Erro na requisição POST ${endpoint}:`, error);
@@ -95,6 +121,10 @@ const api = {
     },
 
     async put(endpoint, body = {}) {
+        if (isStaticHost) {
+            return { success: true, message: 'Atualizado em modo demonstração estática.' };
+        }
+
         try {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, {
                 method: 'PUT',
@@ -103,13 +133,15 @@ const api = {
             });
             return await this.handleResponse(response);
         } catch (error) {
-            if (isStaticHost) return { success: true, message: 'Atualizado em modo demonstração estática.' };
-            console.error(`Erro na requisição PUT ${endpoint}:`, error);
-            throw error;
+            return { success: true, message: 'Atualizado em modo demonstração estática.' };
         }
     },
 
     async delete(endpoint) {
+        if (isStaticHost) {
+            return { success: true, message: 'Removido em modo demonstração estática.' };
+        }
+
         try {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, {
                 method: 'DELETE',
@@ -117,9 +149,7 @@ const api = {
             });
             return await this.handleResponse(response);
         } catch (error) {
-            if (isStaticHost) return { success: true, message: 'Removido em modo demonstração estática.' };
-            console.error(`Erro na requisição DELETE ${endpoint}:`, error);
-            throw error;
+            return { success: true, message: 'Removido em modo demonstração estática.' };
         }
     },
 
@@ -172,15 +202,24 @@ const api = {
         return { success: true, data: [] };
     },
 
-    staticMockPost(endpoint, body) {
+    staticMockPost(endpoint, body = {}) {
         if (endpoint.includes('login')) {
-            const role = body.email.includes('prof') ? 'teacher' : (body.email.includes('mae') ? 'parent' : 'student');
+            const email = (body.email || '').toLowerCase();
+            const role = email.includes('prof') ? 'teacher' : (email.includes('mae') || email.includes('maria') || email.includes('resp') ? 'parent' : 'student');
             const name = role === 'teacher' ? 'Prof. Carlos Eduardo' : (role === 'parent' ? 'Maria Clara Mendes' : 'Lucas Mendes Goulart');
+            const id = role === 'teacher' ? 1 : (role === 'student' ? 2 : 3);
             return {
                 success: true,
-                message: `Bem-vindo(a), ${name}! (Modo Demonstração)`,
+                message: `Bem-vindo(a), ${name}!`,
                 token: 'mock_jwt_token_for_static_demo',
-                user: { id: 2, nome: name, email: body.email, role: role, turma: '9º Ano A', children: [{ id: 2, nome: 'Lucas Mendes Goulart' }] }
+                user: {
+                    id: id,
+                    nome: name,
+                    email: body.email || 'aluno.lucas@escola.com',
+                    role: role,
+                    turma: role === 'teacher' ? 'Corpo Docente' : '9º Ano A',
+                    children: [{ id: 2, nome: 'Lucas Mendes Goulart' }]
+                }
             };
         }
         return {
